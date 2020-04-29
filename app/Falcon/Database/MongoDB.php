@@ -3,10 +3,7 @@
 namespace Falcon\Database;
  
 use Falcon\GenericSingleton;
-use PDO;
-
-use \MongoDB\Client;
-    	$client = new Client('mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass%20Community&ssl=false');
+use MongoDB\Client;
 
 class MongoDB extends GenericSingleton implements IDatabase
 {
@@ -14,16 +11,19 @@ class MongoDB extends GenericSingleton implements IDatabase
     
     protected function __construct() 
     {
-        $config = include dirname(__DIR__, 2).'/config.php';
-        $this->db = new PDO(
-            $config['mongodb']['host'], 
-            $config['mongodb']['dbname']
-        );
+        $client =  new Client('mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass%20Community&ssl=false');
+        $this->db = $client->admin;
+        
+       /* $config = include dirname(__DIR__, 2). '/config.php';
+        $client =  new Client($config['mongodb']['host']);
+        $this->db = $client->selectDatabase($config['mongodb']['dbname']);*/
+        
     }
     
     public function getDatabase() 
     {
         return $this->db;
     }
+
 }
         

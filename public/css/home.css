@@ -1,0 +1,11 @@
+/******************************/
+/************HOME**************/
+/******************************/
+body{
+    background-color: blue;
+}
+/************header************/
+nav{
+    display: flex;
+    justify-content: space-evenly;
+}
